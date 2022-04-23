@@ -1,25 +1,12 @@
-class Employee {
-    constructor(employeeName, id, email){
-    this.employeeName = employeeName;
-    this.id = id;
-    this.email = email;
-    
-
-    }
-}
+const Engineer = require("../lib/engineer");
+const Employee = require ("../lib/employee");
 
 
-Employee.getName();
-Employee.getID();
-Employee.getEmail();
+describe("Set GitHub with constructor arg", () => {
+    const git = gVal;
+    const eng = new Engineer("Tony", 1, "No1Pl@boy@stark.mail", git);
+    expect(eng.git).toBe(gVal);
+});
 
-
-class Engineer {
-    constructor(gitHub){
-    this.gitHub = gitHub;
-    }
-}
-
-// getRole(Engineer){
-//     return Engineer;
-// };
+// Retrieve GitHub
+// Return Engineer

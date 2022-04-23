@@ -1,25 +1,13 @@
-class Employee {
-    constructor(employeeName, id, email){
-    this.employeeName = employeeName;
-    this.id = id;
-    this.email = email;
-    
-
-    }
-}
+const Intern = require("../lib/intern");
+const Employee = require ("../lib/employee");
 
 
-Employee.getName();
-Employee.getID();
-Employee.getEmail();
+describe("Set School with constructor arg", () => {
+    const school = sName;
+    const int = new Intern("Bucky", 2, "bBarnes@yahoo.com", school);
+    expect(int.school).toBe(sName);
+});
 
 
-class Intern {
-    constructor(school){
-    this.school = school;
-    }
-}
-
-// getRole(Intern){
-//     return Intern;
-// };
+// Retrieve School
+// Return Intern

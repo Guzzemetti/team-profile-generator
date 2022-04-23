@@ -1,14 +1,9 @@
-class Employee {
-    constructor(employeeName, id, email){
-    this.employeeName = employeeName;
-    this.id = id;
-    this.email = email;
-    
+const Employee = require("../lib/employee");
 
+
+describe("Employee", () => {
+    it("Baseline employee class"), () => {
+        const e =new Employee();
+        expect(new Employee(e)).toBe("object");
     }
-}
-
-
-Employee.getName();
-Employee.getID();
-Employee.getEmail();
+})
