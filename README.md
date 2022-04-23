@@ -28,3 +28,7 @@ THEN I am prompted to enter the intern’s name, ID, email, and school, and I am
 
 WHEN I decide to finish building my team
 THEN I exit the application, and the HTML is generated
+
+
+
+https://zoom.us/rec/play/8VAgLgs_mGUsxeP0tyIiJFZQ2G0dINCGr7R75ZWZRFZsWUfol0jMf3Q1Ag9Duaua09i0Kv8hAzY8Y59i.TNR_7TeFeCyPElYh?startTime=1650632469000&_x_zm_rtaid=AktOIOA_SU-AkpkBqOXD4w.1650741208790.420b2c4d3c4ca3d95f9f619e7c933d61&_x_zm_rhtaid=16
