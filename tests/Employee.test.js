@@ -7,3 +7,12 @@ describe("Employee", () => {
         expect(new Employee(e)).toBe("object");
     }
 })
+
+const billy = new Employee("Billy", 12, "bill");
+
+
+function tester(){
+console.log(billy);
+}
+
+tester();
