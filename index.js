@@ -3,7 +3,7 @@ const inquirer = require("inquirer")
 const employeeInfoRequest = [
     {
         type: "input",
-        name: "employeeName",
+        name: "empName",
         message: "Please enter the name of this employee"
     },
     {
@@ -30,6 +30,11 @@ const githubRequest = [
         name: "githubLink",
         message: "Please enter the URL to your GitHub Profile"
     },
+    {
+        type: "confirm",
+        name: "addEmployee",
+        message: "Would you like to add another employee?"
+    }
 ];
 // Prompt for interns
 const schoolRequest = [
@@ -38,6 +43,11 @@ const schoolRequest = [
         name: "schoolName",
         message: "Please enter the name of the School they attend"
     },
+    {
+        type: "confirm",
+        name: "addEmployee",
+        message: "Would you like to add another employee?"
+    }
 ];
 // Prompt for manager
 const officeNumberReq = [
@@ -46,21 +56,37 @@ const officeNumberReq = [
         name: "officeNumber",
         message: "Please enter their office phone number"
     },
+    {
+        type: "confirm",
+        name: "addEmployee",
+        message: "Would you like to add another employee?"
+    }
 ]
 // Function to prompt user to fill out the employeeInfoRequest request
-function roleInfo() {
+function roleInfo(data) {
     inquirer.prompt(employeeInfoRequest)
         // Depending on what role the employee falls under, they get prompted with an additional question specific to their role
-        .then(employeeInfoRequest => {
-            if (employeeInfoRequest.employeeRole === "Engineer") {
+        .then(data => {
+            if (data.employeeRole === "Engineer") {
                 inquirer.prompt(githubRequest);
             }
-            if (employeeInfoRequest.employeeRole === "Intern") {
+            if (data.employeeRole === "Intern") {
                 inquirer.prompt(schoolRequest);
             }
-            if (employeeInfoRequest.employeeRole === "Manager") {
+            if (data.employeeRole === "Manager") {
                 inquirer.prompt(officeNumberReq);
-            }
-        });
+            }  
+        })
+        return data;
 };
 roleInfo();
+
+
+// async function addEmployee(data) {
+//     await roleInfo(data)
+//     .then(data => {
+//         if (data.addEmployee === true) {
+//             inquirer.prompt(employeeInfoRequest);
+// }});
+// }
+
