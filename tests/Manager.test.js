@@ -1,5 +1,4 @@
 const Manager = require("../lib/manager");
-const Employee = require ("../lib/employee");
 
 it("Set office number with constructor arg", () => {
     const officeNum = 555;

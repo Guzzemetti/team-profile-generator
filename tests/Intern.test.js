@@ -1,6 +1,4 @@
 const Intern = require("../lib/intern");
-const Employee = require ("../lib/employee");
-
 
 it("Set School with constructor arg", () => {
     const school = "schoolzz";

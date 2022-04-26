@@ -7,21 +7,21 @@ describe("Employee", () => {
         expect(typeof(e)).toBe("object");
     })
 });
-// Establishes the employee name
+// Tests the employee name parameter
 it("Sets the employee name", () => {
     const name = "John";
     const e = new Employee("John");
     expect(e.employeeName).toBe(name);
 });
 
-// Establishes the name and ID
+// Tests the employee ID parameter
 it("Sets the employee ID", () => {
     const id = 12;
     const e = new Employee("John", 12);
     expect(e.id).toBe(id)
 })
 
-// Establishes the email address
+// Tests the employee email address parameter
 it("Sets the employee email address", () => {
     const email = "jGuzz@yahoo.com";
     const e = new Employee("John", 12, "jGuzz@yahoo.com");
