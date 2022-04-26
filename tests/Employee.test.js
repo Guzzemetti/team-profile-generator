@@ -27,3 +27,4 @@ it("Sets the employee email address", () => {
     const e = new Employee("John", 12, "jGuzz@yahoo.com");
     expect(e.email).toBe(email)
 })
+

@@ -2,10 +2,10 @@ const Engineer = require("../lib/engineer");
 const Employee = require ("../lib/employee");
 
 
-describe("Set GitHub with constructor arg", () => {
-    const git = gVal;
-    const eng = new Engineer("Tony", 1, "No1Pl@boy@stark.mail", git);
-    expect(eng.git).toBe(gVal);
+it("Set GitHub with constructor arg", () => {
+    const git = "gitHubMaster";
+    const eng = new Engineer("Tony", 1, "No1Pl@boy@stark.mail", "gitHubMaster");
+    expect(eng.gitHub).toBe(git);
 });
 
 // Retrieve GitHub
