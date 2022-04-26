@@ -106,16 +106,15 @@ const addingEmployees = async (inputs = []) => {
             }
         },
         {
-            type: "list",
+            type: "confirm",
             name: "addEmployee",
             message: "Would you like to add another employee?",
-            choices: ["Yes", "No"]
         }
     ];
 
     const { addEmployee, ...answers } = await inquirer.prompt(employeeInfoRequest);
     const employeeInputs = JSON.stringify(answers) === `{}` ? inputs : [...inputs, answers];
-    return addEmployee === "No" ? employeeInputs : addingEmployees(employeeInputs);
+    return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs);
 };
 
 const init = () => {
