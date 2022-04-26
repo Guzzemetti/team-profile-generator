@@ -1,13 +1,6 @@
 const write = require("fs");
 const inquirer = require("inquirer");
-
-// TODOS
-// Need to re-write prompt arrays
-// Make one array for Manager questions, this will run once
-// Create a second array for employee prompts, using the "when" function below to display certain prompts only when the specific role is determined
-// use the blog linked to loop through the array repeatedly
-
-
+// First prompts that are given upon initiation. This gathers information for the Team Manager
 const managerInfo = [
     {
         type: "input",
@@ -36,6 +29,7 @@ const managerInfo = [
         message: "Please enter the Team Manager's Office Number:"
     }
 ];
+// This set of prompts initiate after the managerInfo array has been completed, this is set to loop if the last question is marked as true, allowing us to generate multiple employees
 const addingEmployees = async (inputs = []) => {
     const employeeInfoRequest = [
         {
@@ -51,12 +45,12 @@ const addingEmployees = async (inputs = []) => {
             filter: (input) => {
                 return input.trim();
             },
-            when(answers) {
-                return (
-                    answers.employeeRole === 'Engineer' ||
-                    answers.employeeRole === 'Intern'
-                );
-            }
+            // when(answers) {
+            //     return (
+            //         answers.employeeRole === 'Engineer' ||
+            //         answers.employeeRole === 'Intern'
+            //     );
+            // }
         },
         {
             type: "input",
@@ -65,23 +59,23 @@ const addingEmployees = async (inputs = []) => {
             filter: (input) => {
                 return input.trim();
             },
-            when(answers) {
-                return (
-                    answers.employeeRole === 'Engineer' ||
-                    answers.employeeRole === 'Intern'
-                );
-            }
+            // when(answers) {
+            //     return (
+            //         answers.employeeRole === 'Engineer' ||
+            //         answers.employeeRole === 'Intern'
+            //     );
+            // }
         },
         {
             type: "input",
             name: "employeeID",
             message: "Please enter this Employee's ID:",
-            when(answers) {
-                return (
-                    answers.employeeRole === 'Engineer' ||
-                    answers.employeeRole === 'Intern'
-                );
-            }
+            // when(answers) {
+            //     return (
+            //         answers.employeeRole === 'Engineer' ||
+            //         answers.employeeRole === 'Intern'
+            //     );
+            // }
         },
         {
             type: "input",
@@ -112,11 +106,16 @@ const addingEmployees = async (inputs = []) => {
         }
     ];
 
+
     const { addEmployee, ...answers } = await inquirer.prompt(employeeInfoRequest);
+    // Stringifies the answers for the employeeInputs array and then pushes them into the overal array that we pull data from
     const employeeInputs = JSON.stringify(answers) === `{}` ? inputs : [...inputs, answers];
+    // Checks the answer to the last question in the employeeInputs array. If false, the prompts stop, if true, it loops through the prompts again
     return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs);
 };
 
+
+// Initiates functions to propt users to input employee information
 const init = () => {
     inquirer.prompt(managerInfo)
         .then((results) => {
@@ -131,26 +130,3 @@ const init = () => {
 };
 
 init();
-
-
-
-
-
-// Function to prompt user to fill out the employeeInfoRequest request
-// function roleInfo() {
-//     inquirer.prompt(employeeInfoRequest)
-//         // Depending on what role the employee falls under, they get prompted with an additional question specific to their role
-//         .then(data => {
-//             if (data.employeeRole === "Engineer") {
-//                 inquirer.prompt(githubRequest);
-//             }
-//             if (data.employeeRole === "Intern") {
-//                 inquirer.prompt(schoolRequest);
-//             }
-//             if (data.employeeRole === "Manager") {
-//                 inquirer.prompt(officeNumberReq);
-//             }
-//         })
-//         .then((data) => {write(data)})
-// };
-// roleInfo();
