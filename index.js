@@ -10,12 +10,15 @@ const employeeList = [];
 // First prompts that are given upon initiation. This gathers information for the Team Manager
 const managerInfo = [
     {
+        type: "list",
+        name: "employeeRole",
+        message: "Please select your title:",
+        choices: ["Manager"]
+    },
+    {
         type: "input",
         name: "empName",
         message: "Please enter the Team Manager's Name:",
-        filter: (input) => {
-            return input.trim();
-        }
     },
     {
         type: "input",
@@ -51,13 +54,7 @@ const addingEmployees = async (inputs = []) => {
             message: "Please enter the Name of this Employee:",
             filter: (input) => {
                 return input.trim();
-            },
-            // when(answers) {
-            //     return (
-            //         answers.employeeRole === 'Engineer' ||
-            //         answers.employeeRole === 'Intern'
-            //     );
-            // }
+            }
         },
         {
             type: "input",
@@ -65,24 +62,12 @@ const addingEmployees = async (inputs = []) => {
             message: "Please enter this Employee's Email Address:",
             filter: (input) => {
                 return input.trim();
-            },
-            // when(answers) {
-            //     return (
-            //         answers.employeeRole === 'Engineer' ||
-            //         answers.employeeRole === 'Intern'
-            //     );
-            // }
+            }
         },
         {
             type: "input",
             name: "employeeID",
-            message: "Please enter this Employee's ID:",
-            // when(answers) {
-            //     return (
-            //         answers.employeeRole === 'Engineer' ||
-            //         answers.employeeRole === 'Intern'
-            //     );
-            // }
+            message: "Please enter this Employee's ID:"
         },
         {
             type: "input",
@@ -113,54 +98,55 @@ const addingEmployees = async (inputs = []) => {
         }
     ];
 
-
     const { addEmployee, ...answers } = await inquirer.prompt(employeeInfoRequest);
     // Stringifies the answers for the employeeInputs array and then pushes them into the overal array that we pull data from
     const employeeInputs = JSON.stringify(answers) === `{}` ? inputs : [...inputs, answers];
-    console.log(employeeInputs);
+    // console.log(employeeInputs);
     // Checks the answer to the last question in the employeeInputs array. If false, the prompts stop, if true, it loops through the prompts again
-    return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs);
+    return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs), answers;
 };
-
 function write() {
     fs.writeFile(".dist/index.html", pageDisplay(data), (error) =>
         error ? console.log(error) : console.log("Success!")
         );
     };
-
-function makeEmployee(answers){
-    let newEmployee = new Intern(answers.empName, answers.employeeID, answers.employeeEmail, answers.schoolName);
-    console.log(newEmployee);
-    // if (answers.employeeRole === "Intern") {
-    //     newEmployee = new Intern(answers.empName, answers.employeeID, answers.employeeEmail, answers.schoolName);   
-    // }
-    // if (answers.employeeRole === "Engineer") {
-    //     newEmployee = new Engineer(answers.employeeName, answers.id, answers.email, answers.gitHub);
-    // }
-    // else {
-    //     newEmployee = new Manager(answers.empName, answers.employeeID, answers.employeeEmail, answers.officeNumber);   
-    // }
-    // employeeList.push(newEmployee)
-    // console.log(employeeList);
-    return newEmployee;
-};
-
-// Initiates functions to propt users to input employee information
+    // Initiates functions to propt users to input employee information
 function init(){
     inquirer.prompt(managerInfo)
         .then((results) => {
-            return addingEmployees([results]);
+            declareManager(results)
         })
         .then((results) => {
-        makeEmployee(results)
+            // console.log(results)
+            employeeList.push(newManager)
+            return addingEmployees([results]);
         })
-        // .then((newEmployee) => {
-        // employeeList.push(newEmployee),
-        // console.log(employeeList);
-        // })
+        .then((answers) => {
+            makeEmployee(answers)
+            employeeList.push(newEmployee)
+            console.log(employeeList)
+        })
         .catch((err) => {
             console.log(err);
         })
 };
+function declareManager(results){
+    if (results.employeeRole === "Manager") {
+        newManager = new Manager(results.empName, results.employeeID, results.employeeEmail, results.officeNumber);   
+    }
+    return newManager;
+}
+
+function makeEmployee(answers){
+    if (answers.employeeRole === "Intern") {
+        newEmployee = new Intern(answers.empName, answers.employeeID, answers.employeeEmail, answers.schoolName);   
+    }
+    if (answers.employeeRole === "Engineer") {
+        newEmployee = new Engineer(answers.empName, answers.employeeID, answers.employeeEmail, answers.githubLink);
+    }
+    return newEmployee;
+};
+
+
 
 init();
