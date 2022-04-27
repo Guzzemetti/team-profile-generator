@@ -119,7 +119,7 @@ function init(){
         .then((answers) => {
             makeEmployee(answers)
             employeeList.push(newEmployee)
-            console.log(employeeList)
+            // console.log(employeeList)
         })
         .then(() => {
             write(employeeList)
