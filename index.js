@@ -1,5 +1,12 @@
-const write = require("fs");
+const fs = require("fs");
 const inquirer = require("inquirer");
+const html = require("./lib/html");
+const Employee = require("./lib/employee")
+const Engineer = require("./lib/engineer");
+const Intern = require("./lib/intern");
+const Manager = require("./lib/manager");
+
+const employeeList = [];
 // First prompts that are given upon initiation. This gathers information for the Team Manager
 const managerInfo = [
     {
@@ -110,20 +117,47 @@ const addingEmployees = async (inputs = []) => {
     const { addEmployee, ...answers } = await inquirer.prompt(employeeInfoRequest);
     // Stringifies the answers for the employeeInputs array and then pushes them into the overal array that we pull data from
     const employeeInputs = JSON.stringify(answers) === `{}` ? inputs : [...inputs, answers];
+    console.log(employeeInputs);
     // Checks the answer to the last question in the employeeInputs array. If false, the prompts stop, if true, it loops through the prompts again
     return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs);
 };
 
+function write() {
+    fs.writeFile(".dist/index.html", pageDisplay(data), (error) =>
+        error ? console.log(error) : console.log("Success!")
+        );
+    };
+
+function makeEmployee(answers){
+    let newEmployee = new Intern(answers.empName, answers.employeeID, answers.employeeEmail, answers.schoolName);
+    console.log(newEmployee);
+    // if (answers.employeeRole === "Intern") {
+    //     newEmployee = new Intern(answers.empName, answers.employeeID, answers.employeeEmail, answers.schoolName);   
+    // }
+    // if (answers.employeeRole === "Engineer") {
+    //     newEmployee = new Engineer(answers.employeeName, answers.id, answers.email, answers.gitHub);
+    // }
+    // else {
+    //     newEmployee = new Manager(answers.empName, answers.employeeID, answers.employeeEmail, answers.officeNumber);   
+    // }
+    // employeeList.push(newEmployee)
+    // console.log(employeeList);
+    return newEmployee;
+};
 
 // Initiates functions to propt users to input employee information
-const init = () => {
+function init(){
     inquirer.prompt(managerInfo)
         .then((results) => {
             return addingEmployees([results]);
         })
-        .then((data) => {
-            generateHtml(data);
+        .then((results) => {
+        makeEmployee(results)
         })
+        // .then((newEmployee) => {
+        // employeeList.push(newEmployee),
+        // console.log(employeeList);
+        // })
         .catch((err) => {
             console.log(err);
         })
