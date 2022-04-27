@@ -105,11 +105,6 @@ const addingEmployees = async (inputs = []) => {
     // Checks the answer to the last question in the employeeInputs array. If false, the prompts stop, if true, it loops through the prompts again
     return addEmployee === false ? employeeInputs : addingEmployees(employeeInputs), answers;
 };
-function write() {
-    fs.writeFile(".dist/index.html", pageDisplay(data), (error) =>
-        error ? console.log(error) : console.log("Success!")
-        );
-    };
     // Initiates functions to propt users to input employee information
 function init(){
     inquirer.prompt(managerInfo)
@@ -125,6 +120,9 @@ function init(){
             makeEmployee(answers)
             employeeList.push(newEmployee)
             console.log(employeeList)
+        })
+        .then(() => {
+            write(employeeList)
         })
         .catch((err) => {
             console.log(err);
@@ -148,5 +146,10 @@ function makeEmployee(answers){
 };
 
 
+function write(employeeList) {
+    fs.writeFile("./dist/index.html", html(employeeList), (error) =>
+        error ? console.log(error) : console.log("Success!")
+        );
+    };
 
 init();
