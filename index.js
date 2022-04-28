@@ -108,7 +108,7 @@ const addingEmployees = async (inputs = []) => {
     // Initiates functions to propt users to input employee information
 function init(){
     inquirer.prompt(managerInfo)
-        .then((results) => {
+        .then((results) => {``
             declareManager(results)
         })
         .then((results) => {
